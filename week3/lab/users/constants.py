@@ -1,0 +1,8 @@
+TASK_DONE = 1
+TASK_DOING = 2
+TASK_TODO = 3
+TASK_STATUSES = (
+    (TASK_DONE, 'DONE'),
+    (TASK_DOING, 'DOING'),
+    (TASK_TODO, 'TODO'),
+)
