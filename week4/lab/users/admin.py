@@ -1,5 +1,5 @@
 from django.contrib import admin
-from users.models import *
+from users.models import Project, Profile, TaskComment, TaskDocument, Task
 
 @admin.register(Profile)
 class ProfileAdmin(admin.ModelAdmin):

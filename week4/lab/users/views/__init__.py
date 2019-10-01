@@ -1,2 +1,2 @@
-from .api_views import *
-from .viewsets import *
+from .api_views import RegisterAPIView, ProfileDetailAPIView
+from .viewsets import ProjectViewSet, TaskViewSet

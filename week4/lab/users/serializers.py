@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from users.models import *
+from users.models import ExtendedUser, Profile, Project, Task, TaskDocument, TaskComment
 
 
 class ExtendedUserSerializer(serializers.ModelSerializer):
@@ -50,6 +50,7 @@ class ProjectSerializer(serializers.ModelSerializer):
     id = serializers.IntegerField(read_only=True)
     name = serializers.CharField(required=True, allow_blank=False)
     creator_name = serializers.SerializerMethodField()
+    creator = ExtendedUserSerializer(read_only=True)
 
     class Meta:
         model = Project
@@ -60,7 +61,6 @@ class ProjectSerializer(serializers.ModelSerializer):
         if obj.creator is not None:
             return obj.creator.username
         return ''
-
 
 
 # class BlockSerializer(serializers.ModelSerializer):

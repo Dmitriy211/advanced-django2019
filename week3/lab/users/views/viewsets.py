@@ -5,12 +5,11 @@ from rest_framework import status
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.decorators import action
 
-from users.serializers import *
-from users.models import *
+from users.serializers import TaskSerializer, ProjectSerializer
+from users.models import Project, Task
 
 
-class ProjectViewSet(mixins.ListModelMixin,
-                     viewsets.GenericViewSet):
+class ProjectViewSet(viewsets.ModelViewSet):
     queryset = Project.objects.all()
     serializer_class = ProjectSerializer
     permission_classes = (IsAuthenticated, )
@@ -26,8 +25,21 @@ class ProjectViewSet(mixins.ListModelMixin,
 
     @action(methods=['GET'], detail=True)
     def tasks(self, request, pk):
-        instance = self.get_object()
-        res = f'{instance.name}: tasks'
+        tasks = Project.objects.get(id=pk).task_set.all()
+        serializer = TaskSerializer(tasks, many=True)
+        return Response(serializer.data)
 
+    @action(methods=['GET'], detail=True)
+    def task_count(self, request, pk):
+        res = Project.objects.get(id=pk).tasks_count
         return Response(res)
+
+
+class TaskViewSet(viewsets.GenericViewSet,
+                  mixins.CreateModelMixin):
+    serializer_class = TaskSerializer
+    permission_classes = (IsAuthenticated, )
+
+    def perform_create(self, serializer):
+        return serializer.save(creator=self.request.user)
 

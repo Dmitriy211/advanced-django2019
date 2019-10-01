@@ -39,7 +39,7 @@ class Project(models.Model):
 
     @property
     def tasks_count(self):
-        return self.tasks.count()
+        return self.task_set.count()
 
 
 # class Block(models.Model):
