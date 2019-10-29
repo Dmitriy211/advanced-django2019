@@ -5,7 +5,7 @@ from rest_framework import status
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.decorators import action
 
-from ..serializers import TaskSerializer, ProjectSerializer
+from ..serializers import TaskSerializer, ProjectSerializer, TaskShortSerializer
 from ..models import Project, Task
 
 
@@ -26,7 +26,7 @@ class ProjectViewSet(viewsets.ModelViewSet):
     @action(methods=['GET'], detail=True)
     def tasks(self, request, pk):
         tasks = Project.objects.get(id=pk).task_set.all()
-        serializer = TaskSerializer(tasks, many=True)
+        serializer = TaskShortSerializer(tasks, many=True)
         return Response(serializer.data)
 
     @action(methods=['GET'], detail=True)

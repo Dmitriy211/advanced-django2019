@@ -40,7 +40,7 @@ class ProfileSerializer(serializers.ModelSerializer):
         profile = Profile.objects.create(**validated_data)
         return profile
 
-    def get_origget_user_name(self, obj):
+    def get_user_name(self, obj):
         if obj.user is not None:
             return obj.user.username
         return ''
@@ -77,6 +77,21 @@ class TaskSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Task
+        fields = '__all__'
+
+
+class TaskShortSerializer(serializers.ModelSerializer):
+    id = serializers.IntegerField(read_only=True)
+
+    class Meta:
+        model = Task
+        fields = ('id', 'name', 'status')
+
+
+class TaskFullSerializer(serializers.ModelSerializer):
+    creator_name = serializers.PrimaryKeyRelatedField(read_only=True)
+
+    class Meta:
         fields = '__all__'
 
 

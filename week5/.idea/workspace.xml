@@ -2,21 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d2011451-a21b-448a-8395-bd643cb13750" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/../mid/api/migrations/0001_initial.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../mid/api/migrations/0002_extendeduser.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../mid/api/migrations/0003_delete_extendeduser.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../mid/api/migrations/0004_auto_20191015_1421.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../mid/api/migrations/0005_extendeduser.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../mid/api/migrations/0006_profile.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../mid/api/migrations/0007_auto_20191015_1449.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../mid/api/migrations/0008_profile.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../mid/api/migrations/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../mid/api/serializers.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../mid/api/urls.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../mid/api/views/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../mid/api/views/auth.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../mid/api/views/core.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lab/users/permissions.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lab/users/permissions.py" beforeDir="false" afterPath="$PROJECT_DIR$/lab/users/permissions.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lab/users/serializers.py" beforeDir="false" afterPath="$PROJECT_DIR$/lab/users/serializers.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lab/users/views/viewsets.py" beforeDir="false" afterPath="$PROJECT_DIR$/lab/users/views/viewsets.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -32,8 +21,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/lab/users/serializers.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-34">
-              <caret line="4" column="21" lean-forward="true" selection-start-line="4" selection-start-column="21" selection-end-line="4" selection-end-column="21" />
+            <state relative-caret-position="274">
+              <caret line="87" column="41" lean-forward="true" selection-start-line="87" selection-start-column="41" selection-end-line="87" selection-end-column="41" />
               <folding>
                 <element signature="e#0#38#0" expanded="true" />
               </folding>
@@ -42,15 +31,31 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/lab/users/models.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-799">
+              <caret line="7" column="12" selection-start-line="7" selection-start-column="12" selection-end-line="7" selection-end-column="12" />
+              <folding>
+                <element signature="e#0#28#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/lab/users/permissions.py">
-          <provider selected="true" editor-type-id="text-editor" />
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="51">
+              <caret line="3" column="45" lean-forward="true" selection-start-line="3" selection-start-column="45" selection-end-line="3" selection-end-column="45" />
+            </state>
+          </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/lab/users/views/viewsets.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-85">
-              <caret line="10" lean-forward="true" selection-start-line="10" selection-end-line="10" />
+            <state relative-caret-position="392">
+              <caret line="29" column="40" lean-forward="true" selection-start-line="29" selection-start-column="40" selection-end-line="29" selection-end-column="40" />
               <folding>
                 <element signature="e#0#44#0" expanded="true" />
               </folding>
@@ -75,10 +80,10 @@
       <list>
         <option value="$PROJECT_DIR$/lab/users/models.py" />
         <option value="$PROJECT_DIR$/lab/users/admin.py" />
-        <option value="$PROJECT_DIR$/lab/users/serializers.py" />
         <option value="$PROJECT_DIR$/lab/users/urls.py" />
         <option value="$PROJECT_DIR$/lab/users/permissions.py" />
         <option value="$PROJECT_DIR$/lab/users/views/viewsets.py" />
+        <option value="$PROJECT_DIR$/lab/users/serializers.py" />
       </list>
     </option>
   </component>
@@ -133,6 +138,7 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/lab/lab" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
@@ -188,12 +194,12 @@
       <option name="presentableId" value="Default" />
       <updated>1572324365329</updated>
       <workItem from="1572324387170" duration="998000" />
-      <workItem from="1572326078097" duration="2579000" />
+      <workItem from="1572326078097" duration="4645000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="3577000" />
+    <option name="totallyTimeSpent" value="5643000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
@@ -239,16 +245,6 @@
     <entry file="file://$PROJECT_DIR$/lab/users/tests.py">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/lab/users/models.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="7" column="12" selection-start-line="7" selection-start-column="12" selection-end-line="7" selection-end-column="12" />
-          <folding>
-            <element signature="e#0#28#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/lab/users/admin.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="17">
@@ -267,21 +263,35 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/lab/users/serializers.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-34">
-          <caret line="4" column="21" lean-forward="true" selection-start-line="4" selection-start-column="21" selection-end-line="4" selection-end-column="21" />
+        <state relative-caret-position="274">
+          <caret line="87" column="41" lean-forward="true" selection-start-line="87" selection-start-column="41" selection-end-line="87" selection-end-column="41" />
           <folding>
             <element signature="e#0#38#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/lab/users/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-799">
+          <caret line="7" column="12" selection-start-line="7" selection-start-column="12" selection-end-line="7" selection-end-column="12" />
+          <folding>
+            <element signature="e#0#28#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/lab/users/permissions.py">
-      <provider selected="true" editor-type-id="text-editor" />
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="51">
+          <caret line="3" column="45" lean-forward="true" selection-start-line="3" selection-start-column="45" selection-end-line="3" selection-end-column="45" />
+        </state>
+      </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/lab/users/views/viewsets.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-85">
-          <caret line="10" lean-forward="true" selection-start-line="10" selection-end-line="10" />
+        <state relative-caret-position="392">
+          <caret line="29" column="40" lean-forward="true" selection-start-line="29" selection-start-column="40" selection-end-line="29" selection-end-column="40" />
           <folding>
             <element signature="e#0#44#0" expanded="true" />
           </folding>
