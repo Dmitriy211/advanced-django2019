@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from .models import ExtendedUser, Profile, Project, Task, TaskDocument, TaskComment
+import re
 
 
 class ExtendedUserSerializer(serializers.ModelSerializer):
@@ -62,6 +63,13 @@ class ProjectSerializer(serializers.ModelSerializer):
             return obj.creator.username
         return ''
 
+    def validate_name(self, value):
+        spec = re.compile('[@_!#$%^&*()<>?/\|}{~:]')
+        if spec.search(value) is not None:
+            raise serializers.ValidationError('name should not contain special characters')
+        else:
+            return value
+
 
 # class BlockSerializer(serializers.ModelSerializer):
 #     id = serializers.IntegerField(read_only=True)
@@ -88,10 +96,18 @@ class TaskShortSerializer(serializers.ModelSerializer):
         fields = ('id', 'name', 'status')
 
 
-class TaskFullSerializer(serializers.ModelSerializer):
+class TaskFullSerializer(TaskShortSerializer):
     creator_name = serializers.PrimaryKeyRelatedField(read_only=True)
+    creator = serializers.HiddenField(required=False)
 
-    class Meta:
+    def validate_name(self, value):
+        spec = re.compile('[@_!#$%^&*()<>?/\|}{~:]')
+        if spec.search(value) is not None:
+            raise serializers.ValidationError('name should not contain special characters')
+        else:
+            return value
+
+    class Meta(TaskShortSerializer.Meta):
         fields = '__all__'
 
 

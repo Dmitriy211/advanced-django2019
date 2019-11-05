@@ -5,7 +5,7 @@ from rest_framework import status
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.decorators import action
 
-from ..serializers import TaskSerializer, ProjectSerializer, TaskShortSerializer
+from ..serializers import TaskSerializer, ProjectSerializer, TaskShortSerializer, TaskFullSerializer
 from ..models import Project, Task
 
 
@@ -37,7 +37,7 @@ class ProjectViewSet(viewsets.ModelViewSet):
 
 class TaskViewSet(viewsets.GenericViewSet,
                   mixins.CreateModelMixin):
-    serializer_class = TaskSerializer
+    serializer_class = TaskFullSerializer
     permission_classes = (IsAuthenticated, )
 
     def perform_create(self, serializer):
