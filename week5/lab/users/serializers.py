@@ -98,7 +98,7 @@ class TaskShortSerializer(serializers.ModelSerializer):
 
 class TaskFullSerializer(TaskShortSerializer):
     creator_name = serializers.PrimaryKeyRelatedField(read_only=True)
-    creator = serializers.HiddenField(required=False)
+    creator = serializers.HiddenField(required=False, default=serializers.CurrentUserDefault())
 
     def validate_name(self, value):
         spec = re.compile('[@_!#$%^&*()<>?/\|}{~:]')
