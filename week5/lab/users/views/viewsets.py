@@ -36,8 +36,10 @@ class ProjectViewSet(viewsets.ModelViewSet):
 
 
 class TaskViewSet(viewsets.GenericViewSet,
-                  mixins.CreateModelMixin):
+                  mixins.CreateModelMixin,
+                  mixins.RetrieveModelMixin):
     serializer_class = TaskFullSerializer
+    queryset = Task.objects.all()
     permission_classes = (IsAuthenticated, )
 
     def perform_create(self, serializer):
