@@ -7,6 +7,7 @@ import re
 class ExtendedUserSerializer(serializers.ModelSerializer):
     id = serializers.IntegerField(read_only=True)
     password = serializers.CharField(write_only=True)
+    phone = serializers.IntegerField(required=False)
 
     class Meta:
         model = ExtendedUser
@@ -15,7 +16,6 @@ class ExtendedUserSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         user = ExtendedUser.objects.create(
             username=validated_data['username'],
-            email=validated_data['email'],
         )
 
         user.set_password(validated_data['password'])
