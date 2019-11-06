@@ -12,10 +12,11 @@ import logging
 
 logger = logging.getLogger(__name__)
 
+
 class ProjectViewSet(viewsets.ModelViewSet):
     queryset = Project.objects.all()
     serializer_class = ProjectSerializer
-    permission_classes = (IsAuthenticated, )
+    permission_classes = (IsAuthenticated,)
 
     def perform_create(self, serializer):
         serializer.save(creator=self.request.user)
@@ -45,7 +46,7 @@ class TaskViewSet(viewsets.GenericViewSet,
                   mixins.UpdateModelMixin):
     serializer_class = TaskFullSerializer
     queryset = Task.objects.all()
-    permission_classes = (IsAuthenticated, )
+    permission_classes = (IsAuthenticated,)
 
     def perform_create(self, serializer):
         serializer.save(creator=self.request.user)
@@ -70,3 +71,6 @@ class TaskDocumentViewSet(viewsets.GenericViewSet,
 
     def perform_create(self, serializer):
         serializer.save(creator=self.request.user)
+        logger.info(
+            f"'{self.request.user}' added document '{serializer.data.get('id')}: {serializer.data.get('file_name')}' "
+            f"for task '{serializer.data.get('task')}'")

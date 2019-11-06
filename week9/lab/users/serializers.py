@@ -119,6 +119,7 @@ class TaskFullSerializer(TaskShortSerializer):
 class TaskDocumentSerializer(serializers.ModelSerializer):
     id = serializers.IntegerField(read_only=True)
     file = serializers.FileField(required=True)
+    file_name = serializers.SerializerMethodField(read_only=True)
 
     creator_name = serializers.SerializerMethodField(read_only=True)
     creator = serializers.HiddenField(required=False, default=serializers.CurrentUserDefault())
@@ -132,6 +133,11 @@ class TaskDocumentSerializer(serializers.ModelSerializer):
     def get_creator_name(self, obj):
         if obj.creator is not None:
             return obj.creator.username
+        return ''
+
+    def get_file_name(self, obj):
+        if obj.file.name is not None:
+            return obj.file.name
         return ''
 
     def validate_file(self, value):
