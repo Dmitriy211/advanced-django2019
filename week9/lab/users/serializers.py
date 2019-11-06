@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from .models import ExtendedUser, Profile, Project, Task, TaskDocument, TaskComment
+from .utils.validators import spec_char_validate, validate_extension, validate_file_size
 import re
 
 
@@ -50,8 +51,11 @@ class ProfileSerializer(serializers.ModelSerializer):
 class ProjectSerializer(serializers.ModelSerializer):
     id = serializers.IntegerField(read_only=True)
     name = serializers.CharField(required=True, allow_blank=False)
-    creator_name = serializers.SerializerMethodField()
-    creator = ExtendedUserSerializer(read_only=True)
+
+    creator_name = serializers.SerializerMethodField(read_only=True)
+    creator = serializers.HiddenField(required=False, default=serializers.CurrentUserDefault())
+
+    # creator = ExtendedUserSerializer(read_only=True)
 
     class Meta:
         model = Project
@@ -64,11 +68,8 @@ class ProjectSerializer(serializers.ModelSerializer):
         return ''
 
     def validate_name(self, value):
-        spec = re.compile('[@_!#$%^&*()<>?/\|}{~:]')
-        if spec.search(value) is not None:
-            raise serializers.ValidationError('name should not contain special characters')
-        else:
-            return value
+        spec_char_validate(value)
+        return value
 
 
 # class BlockSerializer(serializers.ModelSerializer):
@@ -79,13 +80,13 @@ class ProjectSerializer(serializers.ModelSerializer):
 #         fields = '__all__'
 
 
-class TaskSerializer(serializers.ModelSerializer):
-    id = serializers.IntegerField(read_only=True)
-    creator_name = serializers.PrimaryKeyRelatedField(read_only=True)
-
-    class Meta:
-        model = Task
-        fields = '__all__'
+# class TaskSerializer(serializers.ModelSerializer):
+#     id = serializers.IntegerField(read_only=True)
+#     creator_name = serializers.PrimaryKeyRelatedField(read_only=True)
+#
+#     class Meta:
+#         model = Task
+#         fields = '__all__'
 
 
 class TaskShortSerializer(serializers.ModelSerializer):
@@ -97,26 +98,46 @@ class TaskShortSerializer(serializers.ModelSerializer):
 
 
 class TaskFullSerializer(TaskShortSerializer):
-    creator_name = serializers.PrimaryKeyRelatedField(read_only=True)
+    creator_name = serializers.SerializerMethodField(read_only=True)
     creator = serializers.HiddenField(required=False, default=serializers.CurrentUserDefault())
 
+    # creator = ExtendedUserSerializer(read_only=True)
+
     def validate_name(self, value):
-        spec = re.compile('[@_!#$%^&*()<>?/\|}{~:]')
-        if spec.search(value) is not None:
-            raise serializers.ValidationError('name should not contain special characters')
-        else:
-            return value
+        spec_char_validate(value)
+        return value
 
     class Meta(TaskShortSerializer.Meta):
         fields = '__all__'
 
+    def get_creator_name(self, obj):
+        if obj.creator is not None:
+            return obj.creator.username
+        return ''
 
-class DocumentSerializer(serializers.ModelSerializer):
+
+class TaskDocumentSerializer(serializers.ModelSerializer):
     id = serializers.IntegerField(read_only=True)
+    file = serializers.FileField(required=True)
+
+    creator_name = serializers.SerializerMethodField(read_only=True)
+    creator = serializers.HiddenField(required=False, default=serializers.CurrentUserDefault())
+
+    # creator = ExtendedUserSerializer(read_only=True)
 
     class Meta:
         model = TaskDocument
         fields = '__all__'
+
+    def get_creator_name(self, obj):
+        if obj.creator is not None:
+            return obj.creator.username
+        return ''
+
+    def validate_file(self, value):
+        validate_file_size(value)
+        validate_extension(value)
+        return value
 
 
 class CommentSerializer(serializers.ModelSerializer):

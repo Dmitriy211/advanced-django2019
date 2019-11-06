@@ -3,6 +3,8 @@ from django.db import models
 from django.db import models
 from django.contrib.auth.models import User, AbstractBaseUser, AbstractUser, PermissionsMixin, BaseUserManager
 from .constants import TASK_STATUSES, TASK_TODO, TASK_DONE, TASK_DOING
+from .utils.upload import task_document_path
+from .utils.validators import validate_extension, validate_file_size
 
 
 class ExtendedUser(AbstractUser):
@@ -86,7 +88,10 @@ class Task(models.Model):
 
 
 class TaskDocument(models.Model):
-    file = models.FileField()
+    file = models.FileField(upload_to=task_document_path,
+                            validators=[validate_file_size, validate_extension],
+                            blank=True,
+                            null=True)
     creator = models.ForeignKey(ExtendedUser, on_delete=models.CASCADE)
     task = models.ForeignKey(Task, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -97,6 +102,5 @@ class TaskComment(models.Model):
     creator = models.ForeignKey(ExtendedUser, on_delete=models.CASCADE)
     task = models.ForeignKey(Task, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
-
 
 # Create your models here.

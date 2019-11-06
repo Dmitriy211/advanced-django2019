@@ -4,9 +4,10 @@ from rest_framework import mixins
 from rest_framework import status
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.decorators import action
+from rest_framework.parsers import FormParser, MultiPartParser, JSONParser
 
-from ..serializers import TaskSerializer, ProjectSerializer, TaskShortSerializer, TaskFullSerializer
-from ..models import Project, Task
+from ..serializers import ProjectSerializer, TaskShortSerializer, TaskFullSerializer, TaskDocumentSerializer
+from ..models import Project, Task, TaskDocument
 import logging
 
 logger = logging.getLogger(__name__)
@@ -51,3 +52,21 @@ class TaskViewSet(viewsets.GenericViewSet,
         logger.info(f"'{self.request.user}' created task '{serializer.data.get('id')}: {serializer.data.get('name')}' "
                     f"for project '{serializer.data.get('project')}'")
 
+    @action(methods=['GET'], detail=True)
+    def documents(self, request, pk):
+        documents = Task.objects.get(id=pk).taskdocument_set.all()
+        serializer = TaskDocumentSerializer(documents, many=True)
+        return Response(serializer.data)
+
+
+class TaskDocumentViewSet(viewsets.GenericViewSet,
+                          mixins.CreateModelMixin,
+                          mixins.RetrieveModelMixin,
+                          mixins.UpdateModelMixin):
+    serializer_class = TaskDocumentSerializer
+    queryset = TaskDocument.objects.all()
+    permission_classes = (IsAuthenticated,)
+    parser_classes = (MultiPartParser, FormParser, JSONParser,)
+
+    def perform_create(self, serializer):
+        serializer.save(creator=self.request.user)
