@@ -3,8 +3,8 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.permissions import IsAuthenticated
 
-from users.models import ExtendedUser, Profile
-from users.serializers import ExtendedUserSerializer, ProfileSerializer
+from api.models import ExtendedUser, Profile
+from api.serializers import ExtendedUserSerializer, ProfileSerializer
 
 import logging
 
