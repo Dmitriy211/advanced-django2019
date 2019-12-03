@@ -1,9 +1,11 @@
 from django.contrib import admin
-from .models import Project, Profile, TaskComment, TaskDocument, Task, ExtendedUser
+from .models import Project, Profile, TaskComment, TaskDocument, Task, ExtendedUser, ProjectMember
+
 
 @admin.register(ExtendedUser)
 class ExtendedUserAdmin(admin.ModelAdmin):
     list_display = ('id', 'username', 'email')
+
 
 @admin.register(Profile)
 class ProfileAdmin(admin.ModelAdmin):
@@ -15,9 +17,9 @@ class ProjectAdmin(admin.ModelAdmin):
     list_display = ('id', 'name', 'description', 'creator')
 
 
-# @admin.register(Block)
-# class BlockAdmin(admin.ModelAdmin):
-#     list_display = ('id', 'name', 'type', 'project')
+@admin.register(ProjectMember)
+class ProjectMemberAdmin(admin.ModelAdmin):
+    list_display = ('id', 'user', 'project')
 
 
 @admin.register(Task)

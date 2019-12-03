@@ -1,6 +1,4 @@
 from django.db import models
-
-from django.db import models
 from django.contrib.auth.models import User, AbstractBaseUser, AbstractUser, PermissionsMixin, BaseUserManager
 from .constants import TASK_STATUSES, TASK_TODO, TASK_DONE, TASK_DOING
 from .utils.upload import task_document_path
@@ -44,6 +42,12 @@ class Project(models.Model):
     @property
     def tasks_count(self):
         return self.task_set.count()
+
+
+class ProjectMember(models.Model):
+    project = models.ForeignKey(Project, on_delete=models.CASCADE, related_name="members")
+    user = models.ForeignKey(ExtendedUser, on_delete=models.CASCADE, related_name="memberships")
+
 
 
 class TaskManager(models.Manager):
@@ -97,7 +101,6 @@ class TaskDocument(models.Model):
 
         created = self.pk is None
         super().save(*args, **kwargs)
-
 
 
 class TaskComment(models.Model):

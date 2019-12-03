@@ -6,8 +6,8 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.decorators import action
 from rest_framework.parsers import FormParser, MultiPartParser, JSONParser
 
-from ..serializers import ProjectSerializer, TaskShortSerializer, TaskFullSerializer, TaskDocumentSerializer
-from ..models import Project, Task, TaskDocument
+from ..serializers import ProjectSerializer, TaskShortSerializer, TaskFullSerializer, TaskDocumentSerializer, ExtendedUserSerializer
+from ..models import Project, Task, TaskDocument, ExtendedUser
 import logging
 
 logger = logging.getLogger(__name__)
@@ -38,6 +38,12 @@ class ProjectViewSet(viewsets.ModelViewSet):
     def task_count(self, request, pk):
         res = Project.objects.get(id=pk).tasks_count
         return Response(res)
+
+    @action(methods=['GET'], detail=True)
+    def members(self, request, pk):
+        users = ExtendedUser.objects.filter(memberships__project=pk)
+        serializer = ExtendedUserSerializer(users, many=True)
+        return Response(serializer.data)
 
 
 class TaskViewSet(viewsets.GenericViewSet,

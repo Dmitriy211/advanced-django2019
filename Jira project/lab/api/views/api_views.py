@@ -4,7 +4,7 @@ from rest_framework import status
 from rest_framework.permissions import IsAuthenticated
 
 from api.models import ExtendedUser, Profile
-from api.serializers import ExtendedUserSerializer, ProfileSerializer
+from api.serializers import ExtendedUserSerializer, ProfileSerializer, ProjectMemberSerializer
 
 import logging
 
@@ -39,3 +39,16 @@ class ProfileDetailAPIView(APIView):
             serializer.save()
             return Response(serializer.data)
         return Response(serializer.errors)
+
+
+class ProjectMemberApiView(APIView):
+    http_method_names = ['post']
+    permission_classes = (IsAuthenticated,)
+
+    def post(self, request):
+        serializer = ProjectMemberSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            logger.info(f"User '{serializer.data.get('user_username')}' was assigned to project '{serializer.data.get('project_name')}'")
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

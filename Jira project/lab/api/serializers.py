@@ -1,7 +1,6 @@
 from rest_framework import serializers
-from .models import ExtendedUser, Profile, Project, Task, TaskDocument, TaskComment
+from .models import ExtendedUser, Profile, Project, Task, TaskDocument, TaskComment, ProjectMember
 from .utils.validators import spec_char_validate, validate_extension, validate_file_size
-import re
 
 
 class ExtendedUserSerializer(serializers.ModelSerializer):
@@ -17,22 +16,14 @@ class ExtendedUserSerializer(serializers.ModelSerializer):
         user = ExtendedUser.objects.create(
             username=validated_data['username'],
         )
-
         user.set_password(validated_data['password'])
         user.save()
-
-        # profile = Profile.objects.create(
-        #     user=user
-        # )
-        # profile.save()
         return user
 
 
 class ProfileSerializer(serializers.ModelSerializer):
     id = serializers.IntegerField(read_only=True)
     user_name = serializers.SerializerMethodField()
-
-    # user = serializers.PrimaryKeyRelatedField(required=True, queryset=User.objects.all())
 
     class Meta:
         model = Profile
@@ -55,11 +46,8 @@ class ProjectSerializer(serializers.ModelSerializer):
     creator_name = serializers.SerializerMethodField(read_only=True)
     creator = serializers.HiddenField(required=False, default=serializers.CurrentUserDefault())
 
-    # creator = ExtendedUserSerializer(read_only=True)
-
     class Meta:
         model = Project
-        # fields = ('id', 'name', 'creator_id', 'description', 'creator')
         fields = '__all__'
 
     def get_creator_name(self, obj):
@@ -72,21 +60,12 @@ class ProjectSerializer(serializers.ModelSerializer):
         return value
 
 
-# class BlockSerializer(serializers.ModelSerializer):
-#     id = serializers.IntegerField(read_only=True)
-#
-#     class Meta:
-#         model = Block
-#         fields = '__all__'
+class ProjectMemberSerializer(serializers.ModelSerializer):
+    id = serializers.IntegerField(read_only=True)
 
-
-# class TaskSerializer(serializers.ModelSerializer):
-#     id = serializers.IntegerField(read_only=True)
-#     creator_name = serializers.PrimaryKeyRelatedField(read_only=True)
-#
-#     class Meta:
-#         model = Task
-#         fields = '__all__'
+    class Meta:
+        model = ProjectMember
+        fields = ('id', 'user', 'project')
 
 
 class TaskShortSerializer(serializers.ModelSerializer):
@@ -100,8 +79,6 @@ class TaskShortSerializer(serializers.ModelSerializer):
 class TaskFullSerializer(TaskShortSerializer):
     creator_name = serializers.SerializerMethodField(read_only=True)
     creator = serializers.HiddenField(required=False, default=serializers.CurrentUserDefault())
-
-    # creator = ExtendedUserSerializer(read_only=True)
 
     def validate_name(self, value):
         spec_char_validate(value)
@@ -123,8 +100,6 @@ class TaskDocumentSerializer(serializers.ModelSerializer):
 
     creator_name = serializers.SerializerMethodField(read_only=True)
     creator = serializers.HiddenField(required=False, default=serializers.CurrentUserDefault())
-
-    # creator = ExtendedUserSerializer(read_only=True)
 
     class Meta:
         model = TaskDocument
